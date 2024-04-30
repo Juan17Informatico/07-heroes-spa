@@ -2,16 +2,6 @@ import {  Navigate, useNavigate, useParams } from "react-router-dom";
 import { getHeroById } from "../helpers";
 import { useMemo } from "react";
 
-const validePublishers = (publisher) => {
-  const validPublishers = ['DC Comics', 'Marvel Comics']
-
-  if(publisher == validPublishers[0]){
-    return "dc" 
-  }else{
-    return "marvel"
-  }
-
-}
 
 export const HeroPage = () => {
 
@@ -20,8 +10,7 @@ export const HeroPage = () => {
   const navigate = useNavigate();
 
   const onNavigateBack = () => {
-    const publishers = validePublishers(hero.publisher); 
-    navigate(`/${publishers}`);
+    navigate(-1);
   }
 
   if(!hero){
