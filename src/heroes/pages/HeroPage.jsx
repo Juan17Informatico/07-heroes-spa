@@ -1,26 +1,27 @@
 import {  Navigate, useNavigate, useParams } from "react-router-dom";
 import { getHeroById } from "../helpers";
+import { useMemo } from "react";
 
 const validePublishers = (publisher) => {
-  
-  if(publisher){ 
+  const validPublishers = ['DC Comics', 'Marvel Comics']
 
+  if(publisher == validPublishers[0]){
+    return "dc" 
+  }else{
+    return "marvel"
   }
+
 }
 
 export const HeroPage = () => {
 
   const { id } = useParams();
-
-  const hero = getHeroById( id );
-
+  const hero = useMemo(()=> getHeroById( id ), [id] );
   const navigate = useNavigate();
 
-
   const onNavigateBack = () => {
-
-
-    navigate("/");
+    const publishers = validePublishers(hero.publisher); 
+    navigate(`/${publishers}`);
   }
 
   if(!hero){
@@ -28,7 +29,7 @@ export const HeroPage = () => {
   }
 
   return (
-      <div className="row mt-5">        
+      <div className="row mt-5 img-thumbnail animate__animated animate__fadeInLeft">        
         <div className="col-4">
           <img 
             src={`/assets/${id}.jpg`} 
