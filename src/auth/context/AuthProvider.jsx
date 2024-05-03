@@ -42,10 +42,9 @@ export const AuthProvider = ({children}) => {
         }; 
         dispatch(action);
     }
-    
     return (
         <AuthContext.Provider value={{
-            authState,
+            ...authState,
             
             //methods
             login: login,
