@@ -7,11 +7,23 @@ const initialState = {
     logged: false,
 }
 
+const init = () => {
+    const user= JSON.parse(localStorage.getItem('user')); 
+
+    return{
+        logged: !!user,
+        user: user
+    }
+}
+
 export const AuthProvider = ({children}) => {
 
-    const [ authState, dispatch ] = useReducer( authReducer, initialState );
+    const [ authState, dispatch ] = useReducer( authReducer, initialState, init);
 
     const login = ( name = '' ) => {
+
+        const user = { id: 'ABC0', name}
+
         const action = {
             type: types.login,
             payload: {
@@ -19,6 +31,8 @@ export const AuthProvider = ({children}) => {
                 name: name
             } 
         }
+
+        localStorage.setItem('user', JSON.stringify(user))
 
         dispatch(action);
     }
