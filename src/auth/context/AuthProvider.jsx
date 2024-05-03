@@ -3,12 +3,9 @@ import { AuthContext } from "./AuthContext"
 import { authReducer } from "./authReducer";
 import { types } from "../tipos/tipos";
 
-const initialState = {
-    logged: false,
-}
 
 const init = () => {
-    const user= JSON.parse(localStorage.getItem('user')); 
+    const user = JSON.parse(localStorage.getItem('user')); 
 
     return{
         logged: !!user,
@@ -18,7 +15,7 @@ const init = () => {
 
 export const AuthProvider = ({children}) => {
 
-    const [ authState, dispatch ] = useReducer( authReducer, initialState, init);
+    const [ authState, dispatch ] = useReducer( authReducer, {}, init);
 
     const login = ( name = '' ) => {
 
